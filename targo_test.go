@@ -37,7 +37,7 @@ func TestCreateExtract(t *testing.T) {
 		t.Fatal(errors.New("not a directory: " + barPath))
 	}
 	if err := Extract(foodirPath+".tar", foodirPath); err == nil {
-		t.Fatal(errors.New("is a directory: " + barPath))
+		t.Fatal(errors.New("is a directory: " + foodirPath))
 	}
 
 	if err := Create(archivePath, dirPath); err != nil {
