@@ -14,8 +14,13 @@ import (
 	"strings"
 )
 
-// Create creates a tar archive from a directory.
-// The resulting tar archive format is in POSIX.1 format.
+/*
+Create creates a tar archive from a directory.
+The resulting tar archive format is in POSIX.1 format.
+
+Due to filepath.Dir behavior, calling this function with a dirPath containing an end slash
+or not will change the output result.
+*/
 func Create(destPath, dirPath string) error {
 	fi, err := os.Stat(dirPath)
 	if err != nil {
@@ -104,9 +109,15 @@ func Create(destPath, dirPath string) error {
 	return err
 }
 
-// CreateInPlace creates a tar archive from a directory in place which means
-// that the original directory is removed after the tar archive is created.
-// The .tar suffix will be added to dirPath once the archive is created.
+/*
+CreateInPlace creates a tar archive from a directory in place which means
+that the original directory is removed after the tar archive is created.
+The .tar suffix will be added to dirPath once the archive is created.
+
+Due to filepath.Dir behavior, calling this function with a dirPath
+containing an end slash or not will change the output result. See Create
+examples.
+*/
 func CreateInPlace(dirPath string) error {
 	if err := Create(dirPath+".tar", dirPath); err != nil {
 		return err
