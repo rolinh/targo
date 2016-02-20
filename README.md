@@ -20,3 +20,9 @@ no dependencies and relies only on the Go standard library.
 - `func ExtractInPlace(archivePath string) error`: extract a tar archive from
   `archivePath` "in-place", ie `archivePath` is removed after the archive has
   been extracted (note: it expects `archivePath` to have a file extension).
+
+## Notes
+
+- As pointed out in the documentation of `Create` and `CreateInPlace` (see [#1](https://github.com/Rolinh/targo/issues/1)), the use of [filepath.Dir](https://golang.org/pkg/path/filepath/#Dir) introduce different behavior depending on the way you define your path:
+  - With __'/foo/bar'__, `filepath.Dir` will consider __'bar'__ as the last token and return __'/foo'__. This will include the '__bar__' directory to be part of the tar as the root directory.
+  - With __'/foo/bar/'__, `filepath.Dir` will consider __'/.'__ as the last token and return __'/foo/bar'__. This will ignore the '__bar__' directory and there will be not root directory in the resulting tar.

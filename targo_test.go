@@ -32,6 +32,20 @@ var (
 	voidPath          = parentPath + "/void"
 )
 
+//A path without an ending slash will produce a tar
+//that containing the root directory specified in dirPath.
+func ExampleCreate() {
+	Create(bardirPath+".tar", bardirPath)
+	// Will result in a tar containing the bardir at its root level
+}
+
+//A path with an ending slash
+//will produce a tar that does not contain the root directory specified in dirPath.
+func ExampleCreate_slash() {
+	Create(bardirPath+".tar", bardirPath+"/")
+	// Will result in a tar containing the files and folders inside bardir at its root level
+}
+
 func TestCreateExtract(t *testing.T) {
 	if err := Create(barPath+".tar", barPath); err == nil {
 		t.Fatal(errors.New("not a directory: " + barPath))
