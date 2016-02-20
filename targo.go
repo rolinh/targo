@@ -19,7 +19,9 @@ Create creates a tar archive from a directory.
 The resulting tar archive format is in POSIX.1 format.
 
 Due to filepath.Dir behavior, calling this function with a dirPath containing an end slash
-or not will change the output result.
+or not will change the output result. A dirPath without an ending slash will produce a tar
+with the root directory of the given path while a dirPath with an ending slash will produce 
+a tar without the root directory of this given path.
 */
 func Create(destPath, dirPath string) error {
 	fi, err := os.Stat(dirPath)
