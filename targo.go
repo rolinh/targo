@@ -118,7 +118,7 @@ The .tar suffix will be added to dirPath once the archive is created.
 
 Due to filepath.Dir behavior, calling this function with a dirPath
 containing an end slash or not will change the output result. See Create
-examples.
+documentation and examples.
 */
 func CreateInPlace(dirPath string) error {
 	if err := Create(dirPath+".tar", dirPath); err != nil {
