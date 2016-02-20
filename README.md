@@ -23,6 +23,13 @@ no dependencies and relies only on the Go standard library.
 
 ## Notes
 
-- As pointed out in the documentation of `Create` and `CreateInPlace` (see [#1](https://github.com/Rolinh/targo/issues/1)), the use of [filepath.Dir](https://golang.org/pkg/path/filepath/#Dir) introduce different behavior depending on the way you define your path:
-  - With __'/foo/bar'__, `filepath.Dir` will consider __'bar'__ as the last token and return __'/foo'__. This will include the '__bar__' directory to be part of the tar as the root directory.
-  - With __'/foo/bar/'__, `filepath.Dir` will consider __'/.'__ as the last token and return __'/foo/bar'__. This will ignore the '__bar__' directory and there will be not root directory in the resulting tar.
+- As pointed out in the documentation of `Create` and `CreateInPlace` (see
+  [#1](https://github.com/Rolinh/targo/issues/1)), the use of
+  [filepath.Dir](https://golang.org/pkg/path/filepath/#Dir) introduces different
+  behavior depending on the way you define your path:
+  - With __'/foo/bar'__, `filepath.Dir` will consider __'bar'__ as the last
+    token and return __'/foo'__. This will produce a tar archive with the
+    '__bar__' directory as the root directory of the archive.
+  - With __'/foo/bar/'__, `filepath.Dir` will consider __'/.'__ as the last
+    token and return __'/foo/bar'__. As a consequence, the content of the
+    __'bar'__ directory will be placed at the root of the archive.

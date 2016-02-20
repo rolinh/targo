@@ -14,15 +14,11 @@ import (
 	"strings"
 )
 
-/*
-Create creates a tar archive from a directory.
-The resulting tar archive format is in POSIX.1 format.
-
-Due to filepath.Dir behavior, calling this function with a dirPath containing an end slash
-or not will change the output result. A dirPath without an ending slash will produce a tar
-with the root directory of the given path while a dirPath with an ending slash will produce 
-a tar without the root directory of this given path.
-*/
+// Create creates a tar archive from the directory specified by dirPath.
+// The resulting tar archive format is in POSIX.1 format.
+// Calling this function with dirPath having a trailing slash results in the
+// content of dirPath to be used at the root level of the archive rather than
+// the directory pointed out by dirPath itself.
 func Create(destPath, dirPath string) error {
 	fi, err := os.Stat(dirPath)
 	if err != nil {
@@ -111,15 +107,10 @@ func Create(destPath, dirPath string) error {
 	return err
 }
 
-/*
-CreateInPlace creates a tar archive from a directory in place which means
-that the original directory is removed after the tar archive is created.
-The .tar suffix will be added to dirPath once the archive is created.
-
-Due to filepath.Dir behavior, calling this function with a dirPath
-containing an end slash or not will change the output result. See Create
-documentation and examples.
-*/
+// CreateInPlace behaves just as Create but it creates archive in place. This
+// means that the original directory specified by dirPath is removed after the
+// tar archive is created. The .tar suffix is automatically added to dirPath
+// and is used as the name of the newly created archive.
 func CreateInPlace(dirPath string) error {
 	if err := Create(dirPath+".tar", dirPath); err != nil {
 		return err
@@ -193,7 +184,7 @@ func Extract(destPath, archivePath string) error {
 // ExtractInPlace extracts a tar archive, in place, given its path. The
 // original tar archive is removed after extraction and only its content
 // remains.
-// Note that archivePath is expected to have a file extension.
+// Note that archivePath is expected to contain a file extension.
 func ExtractInPlace(archivePath string) error {
 	ext := filepath.Ext(archivePath)
 	if ext == "" {

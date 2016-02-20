@@ -32,18 +32,19 @@ var (
 	voidPath          = parentPath + "/void"
 )
 
-//A path without an ending slash will produce a tar
-//that containing the root directory specified in dirPath.
+// A path without an ending slash will produce a tar archive with the directory
+// specified by dirPath at its root.
 func ExampleCreate() {
 	Create(bardirPath+".tar", bardirPath)
-	// Will result in a tar containing the bardir at its root level
+	// Will result in a tar archive with bardir at its root level
 }
 
-//A path with an ending slash
-//will produce a tar that does not contain the root directory specified in dirPath.
+// A path with an ending slash will produce a tar archive with the content of
+// the directory specified by dirPath at its root.
 func ExampleCreate_slash() {
 	Create(bardirPath+".tar", bardirPath+"/")
-	// Will result in a tar containing the files and folders inside bardir at its root level
+	// Will result in a tar archive with the files and folders inside bardir at
+	// its root level
 }
 
 func TestCreateExtract(t *testing.T) {
