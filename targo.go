@@ -107,10 +107,10 @@ func Create(destPath, dirPath string) error {
 	return err
 }
 
-// CreateInPlace behaves just as Create but it creates archive in place. This
-// means that the original directory specified by dirPath is removed after the
-// tar archive is created. The .tar suffix is automatically added to dirPath
-// and is used as the name of the newly created archive.
+// CreateInPlace behaves just as Create but it creates the archive in place.
+// This means that the original directory specified by dirPath is removed after
+// the tar archive is created. The .tar suffix is automatically added to
+// dirPath and is used as the name of the newly created archive.
 func CreateInPlace(dirPath string) error {
 	if err := Create(dirPath+".tar", dirPath); err != nil {
 		return err
